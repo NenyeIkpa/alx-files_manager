@@ -2,20 +2,13 @@ import { promisify } from 'util';
 import { createClient } from 'redis';
 
 /**
- * RedisClient Class
+ * Represents a Redis client.
  */
-
-
 class RedisClient {
   /**
-   * RedisClient blueprint.
+   * Creates a new RedisClient instance.
    */
-
   constructor() {
-    /**
-     * initialization fxn of a RedisClient instance
-     */
-
     this.client = createClient();
     this.isClientConnected = true;
     this.client.on('error', (err) => {
@@ -23,7 +16,7 @@ class RedisClient {
       this.isClientConnected = false;
     });
     this.client.on('connect', () => {
-       this.isClientConnected = true;
+      this.isClientConnected = true;
     });
   }
 
@@ -64,7 +57,6 @@ class RedisClient {
   async del(key) {
     await promisify(this.client.DEL).bind(this.client)(key);
   }
-
 }
 
 export const redisClient = new RedisClient();
